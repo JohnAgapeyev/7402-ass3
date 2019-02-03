@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 import math
 import sys
 import os
@@ -15,33 +14,28 @@ if len(sys.argv) != 5:
     print('Usage: ./main.py [e/d] <input_file> <output_file> <key_file>')
     sys.exit(1)
 
-mode = sys.argv[1]
-data = open(sys.argv[2], 'rb').read()
-output_filename = sys.argv[3]
-key_filename = sys.argv[4]
-
-if mode not in ['e', 'd']:
+if sys.argv[1] not in ['e', 'd']:
     print('This application must be run with either \'e\' or \'d\' as the first flag to signal mode of operation')
     sys.exit(1)
+
+data = open(sys.argv[2], 'rb').read()
 
 if len(data) == 0:
     print('Input file must not be empty')
     sys.exit(1)
 
-if os.path.isfile(output_filename):
+if os.path.isfile(sys.argv[3]):
     print('Output file must not currently exist on the system')
     sys.exit(1)
 
-if mode == 'e':
-    if os.path.isfile(key_filename):
+if sys.argv[1] == 'e':
+    if os.path.isfile(sys.argv[4]):
         print('Key file must not currently exist on the system')
         sys.exit(1)
     key = get_key(len(data))
-    output = open(output_filename, 'wb')
-    kf = open(key_filename, 'wb')
-    kf.write(key)
+    open(sys.argv[4], 'wb').write(key)
 else:
-    key = open(key_filename, 'rb').read()
-    output = open(output_filename, 'wb')
+    key = open(sys.argv[4], 'rb').read()
 
+output = open(sys.argv[3], 'wb')
 output.write(encryptMessage(key, data))
