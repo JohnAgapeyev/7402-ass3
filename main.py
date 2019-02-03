@@ -38,10 +38,10 @@ if mode == 'e':
         sys.exit(1)
     key = get_key(len(data))
     output = open(output_filename, 'wb')
-    output.write(encryptMessage(key, data))
     kf = open(key_filename, 'wb')
     kf.write(key)
 else:
-    key = open(key_filename).read()
+    key = open(key_filename, 'rb').read()
     output = open(output_filename, 'wb')
-    output.write(encryptMessage(key, data))
+
+output.write(encryptMessage(key, data))
