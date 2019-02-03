@@ -36,6 +36,8 @@ if sys.argv[1] == 'e':
     open(sys.argv[4], 'wb').write(key)
 else:
     key = open(sys.argv[4], 'rb').read()
+    if len(key) != len(data):
+        print('Key is not the same size as the message')
+        sys.exit(1)
 
-output = open(sys.argv[3], 'wb')
-output.write(encryptMessage(key, data))
+open(sys.argv[3], 'wb').write(encryptMessage(key, data))
